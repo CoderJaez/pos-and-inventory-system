@@ -1,9 +1,14 @@
 import Link from "next/link";
+import { OnlineStatus } from "@/components/common/online-status";
 
 export default function HomePage() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-6 p-4 sm:p-6">
       <header className="rounded-2xl bg-green-600 p-6 text-white">
+        <div className="mb-3 flex justify-end"><OnlineStatus /></div>
+        <h1 className="text-2xl font-bold sm:text-3xl">Sari-Sari Store POS</h1>
+        <p className="mt-2 text-sm sm:text-base">Simple, fast, and offline-ready cash register and inventory system.</p>
+      </header>
         <h1 className="text-2xl font-bold sm:text-3xl">Sari-Sari Store POS</h1>
         <p className="mt-2 text-sm sm:text-base">Simple, fast, and offline-ready cash register and inventory system.</p>
       </header>

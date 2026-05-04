@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import Swal from "sweetalert2";
 import { usePosStore } from "@/lib/store/pos-store";
+import { pushOfflineSale } from "@/lib/offline/offline-queue";
 
 type Product = { id: string; name: string; unit: string; sellingPrice: number; stockQuantity: number };
 
@@ -16,6 +17,18 @@ export function PosTerminal({ products }: { products: Product[] }) {
   const change = paymentMethod === "cash" ? Math.max(0, cashReceived - total) : 0;
 
   const checkout = async () => {
+    const payload = { items, paymentMethod, cashReceived };
+    try {
+      if (!navigator.onLine) throw new Error("offline");
+      const res = await fetch("/api/sales", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) });
+      if (!res.ok) throw new Error("request_failed");
+      void Swal.fire("Sale Complete", `Total ₱${total.toFixed(2)} | Change ₱${change.toFixed(2)}`, "success");
+    } catch {
+      // eslint-disable-next-line react-hooks/purity
+      const offlineReference = `off-${Date.now()}`;
+      pushOfflineSale({ ...payload, offlineReference, createdAt: new Date().toISOString() });
+      void Swal.fire("Saved Offline", "Sale queued and will auto-sync when internet returns.", "info");
+    }
     const res = await fetch("/api/sales", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items, paymentMethod, cashReceived }) });
     if (!res.ok) return void Swal.fire("Error", "Checkout failed", "error");
     void Swal.fire("Sale Complete", `Total ₱${total.toFixed(2)} | Change ₱${change.toFixed(2)}`, "success");
