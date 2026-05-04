@@ -1,0 +1,17 @@
+{
+  "name": "Sari-Sari POS & Inventory",
+  "short_name": "SariPOS",
+  "description": "Offline-first POS and inventory app for sari-sari stores.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#16a34a",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/next.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
