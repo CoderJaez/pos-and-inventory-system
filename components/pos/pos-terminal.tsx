@@ -29,6 +29,9 @@ export function PosTerminal({ products }: { products: Product[] }) {
       pushOfflineSale({ ...payload, offlineReference, createdAt: new Date().toISOString() });
       void Swal.fire("Saved Offline", "Sale queued and will auto-sync when internet returns.", "info");
     }
+    const res = await fetch("/api/sales", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ items, paymentMethod, cashReceived }) });
+    if (!res.ok) return void Swal.fire("Error", "Checkout failed", "error");
+    void Swal.fire("Sale Complete", `Total ₱${total.toFixed(2)} | Change ₱${change.toFixed(2)}`, "success");
     clear();
     setCashReceived(0);
   };

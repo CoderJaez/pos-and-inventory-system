@@ -9,6 +9,10 @@ export default function HomePage() {
         <h1 className="text-2xl font-bold sm:text-3xl">Sari-Sari Store POS</h1>
         <p className="mt-2 text-sm sm:text-base">Simple, fast, and offline-ready cash register and inventory system.</p>
       </header>
+        <h1 className="text-2xl font-bold sm:text-3xl">Sari-Sari Store POS</h1>
+        <p className="mt-2 text-sm sm:text-base">Simple, fast, and offline-ready cash register and inventory system.</p>
+      </header>
+
       <section className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {[
           { href: "/pos", label: "Start Selling", desc: "Quick tap checkout" },
