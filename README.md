@@ -2,6 +2,16 @@
 
 Offline-first **Next.js 16 PWA** for neighborhood sari-sari stores.
 
+## Phase 7 (Polish & Documentation)
+This phase adds complete project documentation and operation guides:
+
+- `docs/SETUP_GUIDE.md`
+- `docs/MIGRATION_GUIDE.md`
+- `docs/DEPLOYMENT_NOTES.md`
+- `docs/PWA_INSTALL_GUIDE.md`
+- `docs/STAFF_USER_GUIDE.md`
+
+## Quick Start
 ## Completed Phases
 - Phase 1: Setup
 - Phase 2: Database Design
@@ -49,6 +59,9 @@ Offline-first **Next.js 16 PWA** for neighborhood sari-sari stores.
 
 ## Dev Commands
 ```bash
+npm install
+cp .env.example .env.local
+npm run db:migrate
 npm run dev
 npm run lint
 npm run db:migrate
@@ -58,6 +71,22 @@ Phase 1 baseline for an offline-first **Next.js 16 PWA** optimized for neighborh
 
 ## Phase 1 Scope
 
+## Core Commands
+```bash
+npm run dev
+npm run lint
+npm run build
+npm run db:migrate
+npm run db:migrate:undo
+```
+
+## Core Routes
+- `/pos`
+- `/inventory`
+- `/reports`
+- `POST /api/sales`
+- `POST /api/sync/sales`
+- `GET /api/reports/summary`
 - Next.js App Router + TypeScript baseline
 - PWA configuration and web manifest
 - MySQL + Sequelize bootstrap
