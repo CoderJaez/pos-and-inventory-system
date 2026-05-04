@@ -1,36 +1,94 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sari-Sari Store POS & Inventory System
 
-## Getting Started
+Offline-first **Next.js 16 PWA** for neighborhood sari-sari stores.
 
-First, run the development server:
+## Completed Phases
+
+### Phase 1: Project Setup
+- Next.js App Router + TypeScript baseline
+- PWA configuration and web manifest
+- MySQL + Sequelize bootstrap
+- Zustand and Zod foundations
+
+### Phase 2: Database Design
+Implemented Sequelize models + migration for:
+- `users`
+- `categories`
+- `suppliers`
+- `products`
+- `inventory_movements`
+- `sales`
+- `sale_items`
+- `payments`
+- `sync_logs`
+
+All core entities include:
+- UUID primary keys
+- timestamps
+- soft-delete (`paranoid` / `deleted_at`) where appropriate
+- foreign keys and relational constraints
+- indexes for search/reporting/sync performance
+
+## Project Structure
+
+```txt
+app/
+  api/health/route.ts
+  layout.tsx
+  offline.tsx
+  page.tsx
+lib/
+  config/env.ts
+  db/sequelize.ts
+  store/app-store.ts
+  validations/product.schema.ts
+public/
+  manifest.webmanifest
+sequelize/
+  config.js
+  migrations/
+    20260504170000-create-phase2-core-tables.js
+  models/
+    index.js
+    user.js
+    category.js
+    supplier.js
+    product.js
+    sale.js
+    sale-item.js
+    payment.js
+    inventory-movement.js
+    sync-log.js
+```
+
+## Environment Setup
+
+```bash
+cp .env.example .env.local
+```
+
+Update `.env.local` with your MySQL credentials.
+
+## Development Commands
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
+npm run db:migrate
+npm run db:migrate:undo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Migration Notes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Migration file creates all Phase 2 core tables and indexes in dependency-safe order.
+- `down` migration drops tables in reverse order.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Next Phase
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Phase 3 will implement Product & Inventory module screens/forms with:
+- Product CRUD UI
+- category/supplier selectors
+- stock adjustments
+- low stock indicators
+- `react-hook-form` + Zod integration
