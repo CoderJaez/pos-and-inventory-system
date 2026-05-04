@@ -1,33 +1,26 @@
 # Sari-Sari Store POS & Inventory System
 
-Offline-first **Next.js 16 PWA** for neighborhood sari-sari stores.
+Phase 1 baseline for an offline-first **Next.js 16 PWA** optimized for neighborhood sari-sari stores.
 
-## Completed Phases
+## Phase 1 Scope
 
-### Phase 1: Project Setup
 - Next.js App Router + TypeScript baseline
 - PWA configuration and web manifest
 - MySQL + Sequelize bootstrap
-- Zustand and Zod foundations
+- Zustand app store bootstrap
+- Zod validation bootstrap
+- Folder layout for phased feature delivery
 
-### Phase 2: Database Design
-Implemented Sequelize models + migration for:
-- `users`
-- `categories`
-- `suppliers`
-- `products`
-- `inventory_movements`
-- `sales`
-- `sale_items`
-- `payments`
-- `sync_logs`
+## Tech Stack
 
-All core entities include:
-- UUID primary keys
-- timestamps
-- soft-delete (`paranoid` / `deleted_at`) where appropriate
-- foreign keys and relational constraints
-- indexes for search/reporting/sync performance
+- Next.js 16 (App Router)
+- TypeScript
+- MySQL (`mysql2`)
+- Sequelize + `sequelize-cli`
+- Zustand
+- Zod + `react-hook-form` + resolvers
+- SweetAlert2
+- `@ducanh2912/next-pwa`
 
 ## Project Structure
 
@@ -37,58 +30,66 @@ app/
   layout.tsx
   offline.tsx
   page.tsx
+components/
+  common/
 lib/
   config/env.ts
   db/sequelize.ts
   store/app-store.ts
   validations/product.schema.ts
 public/
+  icons/
   manifest.webmanifest
 sequelize/
   config.js
   migrations/
-    20260504170000-create-phase2-core-tables.js
   models/
-    index.js
-    user.js
-    category.js
-    supplier.js
-    product.js
-    sale.js
-    sale-item.js
-    payment.js
-    inventory-movement.js
-    sync-log.js
+  seeders/
 ```
 
 ## Environment Setup
+
+1. Copy sample env file:
 
 ```bash
 cp .env.example .env.local
 ```
 
-Update `.env.local` with your MySQL credentials.
+2. Update database values in `.env.local`.
 
 ## Development Commands
 
 ```bash
 npm run dev
-npm run lint
 npm run build
+npm run lint
 npm run db:migrate
 npm run db:migrate:undo
 ```
 
-## Migration Notes
+## Sequelize CLI Notes
 
-- Migration file creates all Phase 2 core tables and indexes in dependency-safe order.
-- `down` migration drops tables in reverse order.
+- `.sequelizerc` points CLI paths to `sequelize/*`
+- Config is loaded from `sequelize/config.js`
 
-## Next Phase
+## PWA Notes
 
-Phase 3 will implement Product & Inventory module screens/forms with:
-- Product CRUD UI
-- category/supplier selectors
-- stock adjustments
-- low stock indicators
-- `react-hook-form` + Zod integration
+- Manifest is served from `public/manifest.webmanifest`
+- Offline fallback route: `/offline`
+- Service worker generation is enabled in production builds
+
+## Phase 2 Preview
+
+Next phase creates the database models and migrations for:
+
+- users
+- categories
+- suppliers
+- products
+- inventory_movements
+- sales
+- sale_items
+- payments
+- sync_logs
+
+with indexes, relationships, and soft-delete where appropriate.
