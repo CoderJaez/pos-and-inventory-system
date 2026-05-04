@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sari-Sari Store POS & Inventory System
 
-## Getting Started
+Phase 1 baseline for an offline-first **Next.js 16 PWA** optimized for neighborhood sari-sari stores.
 
-First, run the development server:
+## Phase 1 Scope
+
+- Next.js App Router + TypeScript baseline
+- PWA configuration and web manifest
+- MySQL + Sequelize bootstrap
+- Zustand app store bootstrap
+- Zod validation bootstrap
+- Folder layout for phased feature delivery
+
+## Tech Stack
+
+- Next.js 16 (App Router)
+- TypeScript
+- MySQL (`mysql2`)
+- Sequelize + `sequelize-cli`
+- Zustand
+- Zod + `react-hook-form` + resolvers
+- SweetAlert2
+- `@ducanh2912/next-pwa`
+
+## Project Structure
+
+```txt
+app/
+  api/health/route.ts
+  layout.tsx
+  offline.tsx
+  page.tsx
+components/
+  common/
+lib/
+  config/env.ts
+  db/sequelize.ts
+  store/app-store.ts
+  validations/product.schema.ts
+public/
+  icons/
+  manifest.webmanifest
+sequelize/
+  config.js
+  migrations/
+  models/
+  seeders/
+```
+
+## Environment Setup
+
+1. Copy sample env file:
+
+```bash
+cp .env.example .env.local
+```
+
+2. Update database values in `.env.local`.
+
+## Development Commands
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run build
+npm run lint
+npm run db:migrate
+npm run db:migrate:undo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sequelize CLI Notes
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- `.sequelizerc` points CLI paths to `sequelize/*`
+- Config is loaded from `sequelize/config.js`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## PWA Notes
 
-## Learn More
+- Manifest is served from `public/manifest.webmanifest`
+- Offline fallback route: `/offline`
+- Service worker generation is enabled in production builds
 
-To learn more about Next.js, take a look at the following resources:
+## Phase 2 Preview
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Next phase creates the database models and migrations for:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- users
+- categories
+- suppliers
+- products
+- inventory_movements
+- sales
+- sale_items
+- payments
+- sync_logs
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+with indexes, relationships, and soft-delete where appropriate.
